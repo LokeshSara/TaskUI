@@ -2,17 +2,17 @@ import { Injectable } from "@angular/core";
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-
+import {ITaskList} from '../task-list/ITaskList';
 
 @Injectable({
     providedIn: 'root'
 })
-export class apiService{
+export class ApiService {
 
 
 
   //private weatherUrl = 'https://query.yahooapis.com/v1/public/yql?format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=';
-    private taskapiUrl = '';
+    private taskapiUrl = 'http://localhost:54913/api/task';
 
     /**
      *
@@ -22,9 +22,9 @@ export class apiService{
 
     }
 
-    getAllTasks(): Observable<ITaskList>{
-       return this.http.get<IWeather>(this.weatherUrl + filter).pipe(
-           tap(data=>console.log('All: '+ JSON.stringify(data))),
+    getAllTasks(): Observable<ITaskList[]> {
+       return this.http.get<ITaskList[]>(this.taskapiUrl).pipe(
+           tap(data => console.log('All: ' + JSON.stringify(data))),
            catchError(this.handleError)
        );
     }
@@ -43,12 +43,12 @@ export class apiService{
     //     );
     //  }
 
-    private handleError(err: HttpErrorResponse){
+    private handleError(err: HttpErrorResponse) {
        let errorMessage;
 
-       if(err.error instanceof ErrorEvent){
+       if (err.error instanceof ErrorEvent) {
            errorMessage = `An error occured: ${err.error.message}`;
-       } else{
+       } else {
            errorMessage = `Server returned code: ${err.status}, error messaage is: ${err.message}`;
        }
        console.error(errorMessage);

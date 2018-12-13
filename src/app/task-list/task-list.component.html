@@ -1,3 +1,44 @@
 <p>
-  task-list works!
+  Task Search section
 </p>
+
+<div class="table-responsive">
+  <table class="table" *ngIf='TaskInfo'>
+      <thead>
+          <tr>
+            <td>
+                Task
+            </td>
+            <td>
+                Parent
+            </td>
+            <td>
+                Priority
+            </td>
+            <td>
+                Start
+            </td>
+            <td>
+                End
+            </td>
+            <td>
+
+            </td>
+      </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor='let Task of TaskInfo'>
+              <td>{{Task.taskDesc}}</td>
+              <td>{{Task.parentDesc}}</td>
+              <td>{{Task.priority}}</td>
+              <td>{{Task.startDate}}</td>
+              <td>{{Task.endDate}}</td>
+              <td>
+                <button value="Edit" style="margin: 10px">Edit</button>
+
+                <button value="Edit" style="margin: 10px">End Task</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
