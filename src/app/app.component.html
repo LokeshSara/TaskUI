@@ -4,14 +4,15 @@
    <app-Weather></app-Weather>
  </div>
 </div> -->
+<div class="h3">Task Manager</div>
 <nav class="navbar navbar-expand navbar-light bg-light">
-    <a class="navbar-barnd">{{pageTitle}}</a>
+    <a class="navbar-barnd"></a>
     <ul class="nav nav-pills">
         <li><a class="nav-link" [routerLink]="['/add']">Add Task</a></li>
         <li><a class="nav-link" [routerLink]="['/home']">View Task</a></li>
       </ul>
 </nav>
+<br/>
 <div class="container">
   <router-outlet></router-outlet>
 </div>
- 

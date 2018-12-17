@@ -1,8 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {ITaskList} from '../task-list/ITaskList';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,6 @@ export class ApiService {
      */
     constructor(private http: HttpClient) {
 
-
     }
 
     getAllTasks(): Observable<ITaskList[]> {
@@ -29,19 +29,55 @@ export class ApiService {
        );
     }
 
-  //   getAllTasks(filter:string): Observable<IWeather>{
-  //     return this.http.get<IWeather>(this.weatherUrl + filter).pipe(
-  //         tap(data=>console.log('All: '+ JSON.stringify(data))),
-  //         catchError(this.handleError)
-  //     );
-  //  }
+      searchTask(searchOption): Observable<ITaskList[]> {
 
-    // getCurrencyInfo(): Observable<ICurrency>{
-    //     return this.http.get<ICurrency>(this.currencyUrl).pipe(
-    //         tap(data=>console.log('All: '+ JSON.stringify(data))),
-    //         catchError(this.handleError)
-    //     );
-    //  }
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type':  'application/json'
+          })
+        };
+
+        return this.http.post<ITaskList[]>(this.taskapiUrl + '/search', searchOption, httpOptions).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError)
+        );
+    }
+
+      AddTask(task): Observable<boolean> {
+
+
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type':  'application/json'
+          })
+        };
+
+        return this.http.post<boolean>(this.taskapiUrl + '/add', task, httpOptions).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError)
+        );
+    }
+
+      UpdateTask(task): Observable<boolean> {
+        return this.http.post<boolean>(this.taskapiUrl + '/update', task).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError)
+        );
+      }
+
+      DeleteTask(id): Observable<boolean> {
+        return this.http.delete<boolean>(this.taskapiUrl + '/delete/' + id).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError)
+        );
+      }
+
+      GetTaskById(id): Observable<ITaskList> {
+        return this.http.get<ITaskList>(this.taskapiUrl + '/' + id).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError)
+        );
+      }
 
     private handleError(err: HttpErrorResponse) {
        let errorMessage;

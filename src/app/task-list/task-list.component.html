@@ -1,6 +1,44 @@
-<p>
-  Task Search section
-</p>
+<div>
+  <div class="row form-group label">
+    <div class="col-md-1">Task:</div>
+    <div class="col-md-5">
+      <input type="text" class="form-control"
+            [(ngModel)] = 'taskDesc'/>
+    </div>
+    <div class="col-md-1">Parent Task:</div>
+    <div class="col-md-5"> <input type="text" class="form-control"
+      [(ngModel)] = 'parentTask'/></div>
+  </div>
+  <div class="row form-group label">
+    <div class="col-md-1">Priority From:</div>
+    <div class="col-md-2"><input type="text" class="form-control" type="number"
+      [(ngModel)] = 'priorityFrom'/></div>
+    <div class="col-md-1">Priority To:</div>
+    <div class="col-md-2"><input [(ngModel)]= 'priorityTo' class="form-control" type="number"/></div>
+    <div class="col-md-1">Start Date:</div>
+    <div class="col-md-2">
+      <!-- <input [(ngModel)]= 'startDate' class="form-control"/> -->
+
+      <input type="date" id="start" name="trip-start"
+       value="" [(ngModel)]= 'startDate' class="form-control"
+       >
+
+    </div>
+    <div class="col-md-1">End Date:</div>
+    <div class="col-md-2">
+      <!-- <input [(ngModel)]= 'endDate' class="form-control"/> -->
+
+      <input type="date" id="start" name="trip-start"
+      value="" [(ngModel)]= 'endDate' class="form-control"
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary pull-right" (click)='SearchTask()'>Search</button>
+    </div>
+  </div>
+</div>
 
 <div class="table-responsive">
   <table class="table" *ngIf='TaskInfo'>
@@ -29,14 +67,13 @@
       <tbody>
           <tr *ngFor='let Task of TaskInfo'>
               <td>{{Task.taskDesc}}</td>
-              <td>{{Task.parentDesc}}</td>
+              <td>{{Task.ParentId}}</td>
               <td>{{Task.priority}}</td>
-              <td>{{Task.startDate}}</td>
-              <td>{{Task.endDate}}</td>
+              <td>{{Task.startDate | date: 'dd/MM/yyyy'}}</td>
+              <td>{{Task.endDate | date: 'dd/MM/yyyy'}}</td>
               <td>
-                <button value="Edit" style="margin: 10px">Edit</button>
-
-                <button value="Edit" style="margin: 10px">End Task</button>
+                <button value="Edit" style="margin: 10px" (click)="onEditClick(Task.taskId)">Edit</button>
+                <button style="margin: 10px" (click)="OnDeleteClick(Task.taskId)">End Task</button>
               </td>
           </tr>
       </tbody>
