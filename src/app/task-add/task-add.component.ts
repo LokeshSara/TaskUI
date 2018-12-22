@@ -18,13 +18,15 @@ export class TaskAddComponent implements OnInit {
   _EndDate: string;
   TaskAddStatus: boolean;
   strPriority: string;
-  _selectedParentTask: string;
+  _parentID: number;
 
   constructor(private taskService: ApiService) {
-    this.priority = '15;';
+
    }
 
   ngOnInit() {
+    this.priority = '15';
+    this.parentId = 0;
     this.getParentTask();
   }
 
@@ -41,8 +43,8 @@ export class TaskAddComponent implements OnInit {
     get endDate(): string {return this._EndDate; }
     set endDate(value: string) { this._EndDate = value.trim(); }
 
-    get selectedParentTask(): string {return this._selectedParentTask; }
-    set selectedParentTask(value: string) { this._selectedParentTask = value.trim(); }
+    get parentId(): number {return this._parentID; }
+    set parentId(value: number) { this._parentID = value; }
 
     getParentTask(): void {
       this.taskService.getAllTasks().subscribe(
@@ -56,7 +58,7 @@ export class TaskAddComponent implements OnInit {
     AddTask(): void {
 
       this.TaskInformation = {
-                          ParentId: Number(this.selectedParentTask), TaskDesc: this.task, StartDate: this.startDate,
+                          ParentId: this.parentId, TaskDesc: this.task, StartDate: this.startDate,
                           EndDate: this.endDate, Priority: Number(this.priority),
                         };
 
@@ -73,8 +75,9 @@ export class TaskAddComponent implements OnInit {
     ResetTask(): void {
       this.task = '';
       this.priority = '15';
-      this.startDate = 'mm/dd/yyyy';
-      this.endDate = 'mm/dd/yyyy';
+      this.startDate = '';
+      this.endDate = '';
+      this.parentId = 0;
     }
 
     OnPriorityChange(strPriority) {

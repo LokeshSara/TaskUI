@@ -7,6 +7,8 @@ import {RouterModule} from '@angular/router';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskAddComponent } from './task-add/task-add.component';
 import { TaskEditComponent } from './task-edit/task-edit.component';
+import { UserAddComponent } from './user-add/user-add.component';
+import { ProjectAddComponent } from './project-add/project-add.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
     AppComponent,
     TaskListComponent,
     TaskAddComponent,
-    TaskEditComponent
+    TaskEditComponent,
+    UserAddComponent,
+    ProjectAddComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot([

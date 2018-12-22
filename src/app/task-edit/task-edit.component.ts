@@ -17,13 +17,14 @@ export class TaskEditComponent implements OnInit {
   TaskInformation: ITasEditInfo;
   _Task: string;
   _Priorty: string ;
-  _ParentTask: string;
+  _parentID: number;
   _StartDate: string;
   _EndDate: string;
   TaskAddStatus: boolean;
   strPriority: string;
   tskId: number;
   _selectedParentTask: string;
+
 
   constructor(private taskService: ApiService, private route: ActivatedRoute) {
 
@@ -32,10 +33,10 @@ export class TaskEditComponent implements OnInit {
 
     });
 
-    this.priority = '15;';
    }
 
   ngOnInit() {
+    this.parentId = 0;
     this.getTaskById(this.tskId);
     this.getParentTask();
   }
@@ -44,10 +45,10 @@ export class TaskEditComponent implements OnInit {
     set task(value: string) { this._Task = value.trim(); }
 
     get priority(): string {return this._Priorty; }
-    set priority(value: string) { this._Priorty = value.trim(); }
+    set priority(value: string) { this._Priorty = value; }
 
-    get parentTask(): string {return this._ParentTask; }
-    set parentTask(value: string) { this._ParentTask = value.trim(); }
+    get parentId(): number {return this._parentID; }
+    set parentId(value: number) { this._parentID = value; }
 
     get startDate(): string {return this._StartDate; }
     set startDate(value: string) { this._StartDate = value.trim(); }
@@ -55,8 +56,7 @@ export class TaskEditComponent implements OnInit {
     get endDate(): string {return this._EndDate; }
     set endDate(value: string) { this._EndDate = value.trim(); }
 
-    get selectedParentTask(): string {return this._selectedParentTask; }
-    set selectedParentTask(value: string) { this._selectedParentTask = value.trim(); }
+
 
     getParentTask(): void {
       this.taskService.getAllTasks().subscribe(
@@ -72,7 +72,12 @@ export class TaskEditComponent implements OnInit {
       this.taskService.GetTaskById(id).subscribe(
       TskInfo => {
           this.TaskInformation = TskInfo;
+
           this.task = this.TaskInformation['taskDesc'];
+          this.priority = this.TaskInformation['priority'];
+          this.parentId = this.TaskInformation['parentId'];
+          this.startDate = this.TaskInformation['startDate'];
+          this.endDate = this.TaskInformation['endDate'];
 
       },
       error => this.errorMessage =  <any>error
@@ -82,13 +87,13 @@ export class TaskEditComponent implements OnInit {
     EditTask(): void {
 
       this.TaskInformation = {
-                           TaskId: this.tskId, ParentId: Number(this.selectedParentTask), TaskDesc: this.task, StartDate: this.startDate,
+                           TaskId: this.tskId, ParentId: this.parentId, TaskDesc: this.task, StartDate: this.startDate,
                           EndDate: this.endDate, Priority: Number(this.priority),
                         };
 
       const searchJson = JSON.stringify(this.TaskInformation);
 
-      this.taskService.AddTask(searchJson).subscribe(
+      this.taskService.UpdateTask(searchJson).subscribe(
       TskInfo => {
           this.TaskAddStatus = TskInfo;
       },
@@ -99,14 +104,11 @@ export class TaskEditComponent implements OnInit {
 
 
     ResetTask(): void {
-      this.task = '';
-      this.priority = '15';
-      this.parentTask = '';
-      this.startDate = 'mm/dd/yyyy';
-      this.endDate = 'mm/dd/yyyy';
+      this.getTaskById(this.tskId);
     }
 
     OnPriorityChange(strPriority) {
+
         this.priority = strPriority;
     }
 

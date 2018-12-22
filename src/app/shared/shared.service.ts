@@ -13,8 +13,8 @@ export class ApiService {
 
 
   //private weatherUrl = 'https://query.yahooapis.com/v1/public/yql?format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=';
-    //private taskapiUrl = 'http://localhost:54913/api/task';
-    private taskapiUrl = 'http://suchi-pc/TaskApi/api/task';
+    private taskapiUrl = 'http://localhost:54913/api/task';
+    //private taskapiUrl = 'http://suchi-pc/TaskApi/api/task';
 
     /**
      *

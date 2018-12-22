@@ -27,7 +27,8 @@
           Parent Task:
       </div>
       <div class="col-md-4">
-          <select [(ngModel)]="selectedParentTask" class="form-control">
+          <select [(ngModel)]="parentId" class="form-control">
+              <option value="0">Please Select</option>
               <option *ngFor="let tsk of TaskInfo" value= {{tsk.taskId}}>
                 {{tsk.taskDesc}}
               </option>

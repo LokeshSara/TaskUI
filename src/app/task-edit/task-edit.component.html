@@ -16,7 +16,8 @@
         </div>
         <div class="col-md-4">
             <div class="slidecontainer">
-                <input type="range" min="1" max="30" value="15" class="slider" id="myRange" (input)="OnPriorityChange($event.target.value)">
+                <!-- <input type="range" min="1" max="30" value="15" class="slider" id="myRange" (input)="OnPriorityChange($event.target.value)"> -->
+                <input id="myRange" type="range" class="slider" min="1" max="30" [(ngModel)]="priority" (input)="OnPriorityChange($event.target.value)">
             </div>
         </div>
         <div class="col-md-6">
@@ -27,7 +28,8 @@
               Parent Task:
           </div>
           <div class="col-md-4">
-              <select [(ngModel)]="selectedParentTask" class="form-control">
+              <select [ngModel]="parentId" (ngModelChange)="parentId = $event" class="form-control">
+                <option value="0">Please Select</option>
                   <option *ngFor="let tsk of TaskInfo" value= {{tsk.taskId}}>
                     {{tsk.taskDesc}}
                   </option>
@@ -42,7 +44,7 @@
             </div>
             <div class="col-md-3">
                 <input type="date" id="start" name="trip-start"
-                value="" [(ngModel)]= 'startDate' class="form-control">
+                [ngModel]= "startDate | date:'yyyy-MM-dd'" class="form-control" (ngModelChange)="startDate = $event" class="form-control">
             </div>
             <div class="col-md-7">
             </div>
@@ -54,7 +56,7 @@
               <div class="col-md-3">
 
                 <input type="date" id="start" name="trip-start"
-                  value="" [(ngModel)]= 'endDate' class="form-control">
+                  [ngModel]= "endDate | date:'yyyy-MM-dd'" class="form-control" (ngModelChange)="endDate = $event">
 
               </div>
               <div class="col-md-7">
@@ -62,7 +64,7 @@
             </div>
             <div class="row form-group">
                 <div class="col-md-2">
-                  <button type="submit" class="btn btn-primary" (click)="EditTask()">Add Task</button>
+                  <button type="submit" class="btn btn-primary" (click)="EditTask()">Update Task</button>
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary" (click)="ResetTask()">Reset</button>
