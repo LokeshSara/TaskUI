@@ -1,3 +1,143 @@
-<p>
-  project-add works!
-</p>
+
+<div>
+    <div class="row form-group">
+      <div class="col-md-2">
+          Project:
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control push-left" [(ngModel)]= 'project'/>
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-2">
+            Start Date:
+        </div>
+        <div class="col-md-3">
+            <input type="date" id="start" name="trip-start"
+            value="" [(ngModel)]= 'startDate' class="form-control">
+        </div>
+        <div class="col-md-7">
+        </div>
+      </div>
+      <div class="row form-group">
+          <div class="col-md-2">
+              End Date:
+          </div>
+          <div class="col-md-3">
+
+            <input type="date" id="start" name="trip-start"
+              value="" [(ngModel)]= 'endDate' class="form-control">
+
+          </div>
+          <div class="col-md-7">
+          </div>
+        </div>
+      <div class="row form-group">
+        <div class="col-md-2">
+            Priority:
+        </div>
+        <div class="col-md-4">
+            <div class="slidecontainer">
+                <input type="range" min="1" max="30" value="15" class="slider" id="myRange" (input)="OnPriorityChange($event.target.value)">
+            </div>
+        </div>
+        <div class="col-md-6">
+        </div>
+      </div>
+      <div class="row form-group">
+          <div class="col-md-2">
+              Manager:
+          </div>
+          <div class="col-md-4">
+              <select [(ngModel)]="managerId" class="form-control">
+                  <option value="0">Please Select</option>
+                  <option *ngFor="let usr of ManagerInfo" value= {{usr.UserId}}>
+                    {{usr.FirstName}} {{usr.LastName}}
+                  </option>
+                </select>
+          </div>
+          <div class="col-md-6">
+          </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary" (click)="Add()">Add</button>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary" (click)="Reset()">Reset</button>
+            </div>
+            <div class="col-md-8">
+            </div>
+          </div>
+
+<hr/>
+<div class="row form-group">
+    <div class="col-md-4">
+      <input type="text" class="form-control push-left" [(ngModel)]= 'searchKey' placeholder="Search..."/>
+    </div>
+    <div class="col-md-8">
+    </div>
+  </div>
+<hr/>
+<div *ngFor='let proj of ProjectList'>
+    <div class="row form-group">
+        <div class="col-md-8">
+          <div class="row">
+              <div class="col-md-6">
+                  Project:
+                </div>
+                <div class="col-md-6">
+                    {{proj.ProjectDesc}}
+                </div>
+          </div>
+          <div class="row">
+              <div class="col-md-3">
+                  No of Tasks:
+                </div>
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-3">
+                  Completed:
+                </div>
+                <div class="col-md-3">
+
+                </div>
+          </div>
+          <div class="row">
+              <div class="col-md-3">
+                  Start Date:
+                </div>
+                <div class="col-md-3">
+                  {{proj.StartDate}}
+                </div>
+                <div class="col-md-3">
+                  End Date:
+                </div>
+                <div class="col-md-3">
+                  {{proj.EndDate}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+          <div class="row">
+            Priority
+          </div>
+          <div class="row">
+            {{proj.Priority}}
+          </div>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary" (click)="Edit(proj.ProjectId)">Update</button>
+            <button type="submit" class="btn btn-primary" (click)="Delete(proj.ProjectId)">Suspend</button>
+        </div>
+      </div>
+      <hr/>
+    </div>
+
+
+    </div>
+

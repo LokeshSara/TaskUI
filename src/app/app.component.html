@@ -4,11 +4,13 @@
    <app-Weather></app-Weather>
  </div>
 </div> -->
-<div class="h3">Task Manager</div>
+<div class="h3">Project Manager</div>
 <nav class="navbar navbar-expand navbar-light bg-light">
     <a class="navbar-barnd"></a>
     <ul class="nav nav-pills">
+        <li><a class="nav-link" [routerLink]="['/project']">Add Project</a></li>
         <li><a class="nav-link" [routerLink]="['/add']">Add Task</a></li>
+        <li><a class="nav-link" [routerLink]="['/user']">Add User</a></li>
         <li><a class="nav-link" [routerLink]="['/home']">View Task</a></li>
       </ul>
 </nav>

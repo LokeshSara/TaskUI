@@ -1,3 +1,90 @@
-<p>
-  user-add works!
-</p>
+
+<div>
+    <div class="row form-group">
+      <div class="col-md-2">
+          First Name:
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control push-left" [(ngModel)]= 'firstName'/>
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-2">
+            Last Name:
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control push-left" [(ngModel)]= 'lastName'/>
+        </div>
+        <div class="col-md-6">
+        </div>
+      </div>
+      <div class="row form-group">
+          <div class="col-md-2">
+              Employee ID:
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control push-left" [(ngModel)]= 'employeeId'/>
+          </div>
+          <div class="col-md-6">
+          </div>
+        </div>
+
+    <div class="row form-group">
+        <div class="col-md-2">
+          </div>
+        <div class="col-md-1">
+          <button type="submit" class="btn btn-primary" (click)="AddUpdate()">{{addbuttontext}}</button>
+        </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary" (click)="Reset()">Reset</button>
+        </div>
+
+      </div>
+
+<hr/>
+<div class="row form-group">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-8">
+            <input type="text" class="form-control push-left" [(ngModel)]= 'searchKey' placeholder="Search..."/>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary pull-right" (click)='Search()'>Search</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+    </div>
+  </div>
+
+<div *ngFor='let user of UserList'>
+    <hr/>
+    <div class="row form-group">
+        <div class="col-md-8">
+          {{user.firstName}}
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary" (click)="Edit(user.userId)">Edit</button>
+        </div>
+      </div>
+      <div class="row form-group">
+          <div class="col-md-8">
+              {{user.lastName}}
+          </div>
+          <div class="col-md-4">
+              <button type="submit" class="btn btn-primary" (click)="Delete(user.userId)">Delete</button>
+          </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-8">
+                {{user.employeeId}}
+            </div>
+            <div class="col-md-4">
+            </div>
+          </div>
+          <hr/>
+</div>
+
+</div>

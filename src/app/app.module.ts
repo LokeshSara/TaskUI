@@ -23,6 +23,8 @@ import { ProjectAddComponent } from './project-add/project-add.component';
   imports: [
     BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot([
       {path: 'home', component: TaskListComponent},
+      {path: 'project', component: ProjectAddComponent},
+      {path: 'user', component: UserAddComponent},
       {path: 'add', component: TaskAddComponent},
       {path: 'edit/:id', component: TaskEditComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'},
