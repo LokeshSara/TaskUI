@@ -49,7 +49,7 @@ export class TaskListComponent implements OnInit {
 
 
   ngOnInit() {
-  
+
     this.getAllTask();
   }
 
@@ -65,8 +65,8 @@ export class TaskListComponent implements OnInit {
   SearchTask(): void {
     this.SearchInfo = {
                         ParentDesc: this.parentTask, TaskDesc: this.taskDesc, StartDate: this.startDate,
-                        EndDate: this.endDate, PriorityMax: this._PriorityFrom,
-                        PriorityMin: this.priorityTo
+                        EndDate: this.endDate, PriorityMax: this.priorityTo,
+                        PriorityMin: this._PriorityFrom
                       };
 
     const searchJson = JSON.stringify(this.SearchInfo);
