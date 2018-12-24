@@ -122,9 +122,7 @@ Edit(id) {
 }
 
 Delete(id): void {
-  console.log(id);
   this.DeleteUser(id);
-
 }
 
 

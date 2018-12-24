@@ -4,6 +4,6 @@ export interface IProject {
   ProjectDesc: string;
   StartDate: string;
   EndDate: string;
-  Priority: number;
-
+  Priority: string;
+  ManagerId: number;
 }

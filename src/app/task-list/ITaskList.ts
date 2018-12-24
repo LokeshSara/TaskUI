@@ -6,4 +6,6 @@ export interface ITaskList {
   StartDate: string;
   EndDate: string;
   Priority: number;
+  ProjectId: number;
+  UserId: number;
 }

@@ -1,12 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { TaskListComponent } from './task-list.component';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
   let TASKS;
-
+  let router: Router;
   let mockTaskService;
 
   beforeEach(() => {
@@ -22,7 +23,7 @@ describe('TaskListComponent', () => {
 
     mockTaskService = jasmine.createSpyObj(['getAllTasks']);
 
-    component = new TaskListComponent(mockTaskService);
+    component = new TaskListComponent(mockTaskService, router);
 
   });
 
@@ -40,11 +41,4 @@ describe('TaskListComponent', () => {
     });
 
   });
-
-
-
-
-
-
-
 });

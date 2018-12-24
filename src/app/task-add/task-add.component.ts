@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/shared.service';
 import { ITaskList } from '../task-list/ITaskList';
 import { ITaskInfo } from './ITaskInfo';
+import { IProject } from '../project-add/IProject';
+import { IUser } from '../user-add/IUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pm-task-add',
@@ -19,15 +22,23 @@ export class TaskAddComponent implements OnInit {
   TaskAddStatus: boolean;
   strPriority: string;
   _parentID: number;
+  ProjectInfo: IProject[];
+  UserInfo: IUser[];
+  _ProjectID: number;
+  _UserID: number;
 
-  constructor(private taskService: ApiService) {
+  constructor(private taskService: ApiService, private router: Router) {
 
    }
 
   ngOnInit() {
-    this.priority = '15';
+    this.priority = '0';
     this.parentId = 0;
     this.getParentTask();
+    this.getAllUser();
+    this.getAllProjects();
+    this.userId = 0;
+    this.projectId = 0;
   }
 
     get task(): string {return this._Task; }
@@ -46,6 +57,30 @@ export class TaskAddComponent implements OnInit {
     get parentId(): number {return this._parentID; }
     set parentId(value: number) { this._parentID = value; }
 
+    get projectId(): number {return this._ProjectID; }
+    set projectId(value: number) { this._ProjectID = value; }
+
+    get userId(): number {return this._UserID; }
+    set userId(value: number) { this._UserID = value; }
+
+    getAllUser(): void {
+      this.taskService.getAllUsers().subscribe(
+      UserInfo => {
+          this.UserInfo = UserInfo;
+      },
+      error => this.errorMessage =  <any>error
+      );
+    }
+
+    getAllProjects(): void {
+      this.taskService.getAllProject().subscribe(
+      projectInfo => {
+          this.ProjectInfo = projectInfo;
+      },
+      error => this.errorMessage =  <any>error
+      );
+    }
+
     getParentTask(): void {
       this.taskService.getAllTasks().subscribe(
       TskInfo => {
@@ -59,7 +94,8 @@ export class TaskAddComponent implements OnInit {
 
       this.TaskInformation = {
                           ParentId: this.parentId, TaskDesc: this.task, StartDate: this.startDate,
-                          EndDate: this.endDate, Priority: Number(this.priority),
+                          EndDate: this.endDate, Priority: Number(this.priority), ProjectId: this.projectId,
+                          UserId: this.userId
                         };
 
       const searchJson = JSON.stringify(this.TaskInformation);
@@ -67,6 +103,7 @@ export class TaskAddComponent implements OnInit {
       this.taskService.AddTask(searchJson).subscribe(
       TskInfo => {
           this.TaskAddStatus = TskInfo;
+          this.router.navigateByUrl('/home');
       },
       error => this.errorMessage =  <any>error
       );
@@ -74,10 +111,12 @@ export class TaskAddComponent implements OnInit {
 
     ResetTask(): void {
       this.task = '';
-      this.priority = '15';
+      this.priority = '0';
       this.startDate = '';
       this.endDate = '';
       this.parentId = 0;
+      this.projectId = 0;
+      this.userId = 0;
     }
 
     OnPriorityChange(strPriority) {

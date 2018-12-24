@@ -5,4 +5,6 @@ export interface ITasEditInfo {
   StartDate: string;
   EndDate: string;
   Priority: number;
+  ProjectId: number;
+  UserId: number;
 }

@@ -4,6 +4,8 @@ import { ITaskList } from '../task-list/ITaskList';
 import { ITasEditInfo } from './ITaskEditInfo';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
+import { IProject } from '../project-add/IProject';
+import { IUser } from '../user-add/IUser';
 
 @Component({
   selector: 'pm-task-edit',
@@ -24,9 +26,12 @@ export class TaskEditComponent implements OnInit {
   strPriority: string;
   tskId: number;
   _selectedParentTask: string;
+  ProjectInfo: IProject[];
+  UserInfo: IUser[];
+  _ProjectID: number;
+  _UserID: number;
 
-
-  constructor(private taskService: ApiService, private route: ActivatedRoute) {
+  constructor(private taskService: ApiService, private route: ActivatedRoute, private router: Router) {
 
     this.route.params.subscribe(params => {
       this.tskId = params['id'];
@@ -39,6 +44,8 @@ export class TaskEditComponent implements OnInit {
     this.parentId = 0;
     this.getTaskById(this.tskId);
     this.getParentTask();
+    this.getAllUser();
+    this.getAllProjects();
   }
 
     get task(): string {return this._Task; }
@@ -56,7 +63,29 @@ export class TaskEditComponent implements OnInit {
     get endDate(): string {return this._EndDate; }
     set endDate(value: string) { this._EndDate = value.trim(); }
 
+    get projectId(): number {return this._ProjectID; }
+    set projectId(value: number) { this._ProjectID = value; }
 
+    get userId(): number {return this._UserID; }
+    set userId(value: number) { this._UserID = value; }
+
+    getAllUser(): void {
+      this.taskService.getAllUsers().subscribe(
+      UserInfo => {
+          this.UserInfo = UserInfo;
+      },
+      error => this.errorMessage =  <any>error
+      );
+    }
+
+    getAllProjects(): void {
+      this.taskService.getAllProject().subscribe(
+      projectInfo => {
+          this.ProjectInfo = projectInfo;
+      },
+      error => this.errorMessage =  <any>error
+      );
+    }
 
     getParentTask(): void {
       this.taskService.getAllTasks().subscribe(
@@ -78,6 +107,8 @@ export class TaskEditComponent implements OnInit {
           this.parentId = this.TaskInformation['parentId'];
           this.startDate = this.TaskInformation['startDate'];
           this.endDate = this.TaskInformation['endDate'];
+          this.projectId = this.TaskInformation['projectId'];
+          this.userId = this.TaskInformation['userId'];
 
       },
       error => this.errorMessage =  <any>error
@@ -88,7 +119,8 @@ export class TaskEditComponent implements OnInit {
 
       this.TaskInformation = {
                            TaskId: this.tskId, ParentId: this.parentId, TaskDesc: this.task, StartDate: this.startDate,
-                          EndDate: this.endDate, Priority: Number(this.priority),
+                          EndDate: this.endDate, Priority: Number(this.priority), ProjectId: this.projectId,
+                          UserId: this.userId
                         };
 
       const searchJson = JSON.stringify(this.TaskInformation);
@@ -96,6 +128,7 @@ export class TaskEditComponent implements OnInit {
       this.taskService.UpdateTask(searchJson).subscribe(
       TskInfo => {
           this.TaskAddStatus = TskInfo;
+          this.router.navigateByUrl('/home');
       },
       error => this.errorMessage =  <any>error
       );

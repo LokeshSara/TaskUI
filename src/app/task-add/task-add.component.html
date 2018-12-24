@@ -1,5 +1,20 @@
 
 <div>
+    <div class="row form-group">
+        <div class="col-md-2">
+            Project:
+        </div>
+        <div class="col-md-4">
+            <select [ngModel]="projectId" (ngModelChange)="projectId = $event" class="form-control">
+                <option value="0">Please Select</option>
+                <option *ngFor="let proj of ProjectInfo" value= {{proj.projectId}}>
+                  {{proj.projectDesc}}
+                </option>
+              </select>
+        </div>
+        <div class="col-md-6">
+        </div>
+      </div>
 <div class="row form-group">
   <div class="col-md-2">
       Task:
@@ -61,6 +76,21 @@
           <div class="col-md-7">
           </div>
         </div>
+        <div class="row form-group">
+            <div class="col-md-2">
+                User:
+            </div>
+            <div class="col-md-4">
+                <select [ngModel]="userId" (ngModelChange)="userId = $event" class="form-control">
+                    <option value="0">Please Select</option>
+                    <option *ngFor="let usr of UserInfo" value= {{usr.userId}}>
+                      {{usr.firstName}}{{usr.lastName}}
+                    </option>
+                  </select>
+            </div>
+            <div class="col-md-6">
+            </div>
+          </div>
         <div class="row form-group">
             <div class="col-md-2">
               <button type="submit" class="btn btn-primary" (click)="AddTask()">Add Task</button>

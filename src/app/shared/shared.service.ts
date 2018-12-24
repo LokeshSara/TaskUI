@@ -68,7 +68,14 @@ export class ApiService {
     }
 
       UpdateTask(task): Observable<boolean> {
-        return this.http.post<boolean>(this.taskapiUrl + '/update', task).pipe(
+
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type':  'application/json'
+          })
+        };
+
+        return this.http.post<boolean>(this.taskapiUrl + '/update', task, httpOptions).pipe(
             tap(data => console.log('All: ' + JSON.stringify(data))),
             catchError(this.handleError)
         );
@@ -218,8 +225,8 @@ export class ApiService {
        );
      }
 
-     GetProjectById(id): Observable<IUser> {
-       return this.http.get<IUser>(this.projectapiUrl + '/' + id).pipe(
+     GetProjectById(id): Observable<IProject> {
+       return this.http.get<IProject>(this.projectapiUrl + '/' + id).pipe(
            tap(data => console.log('All: ' + JSON.stringify(data))),
            catchError(this.handleError)
        );

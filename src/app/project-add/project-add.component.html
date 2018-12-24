@@ -15,8 +15,12 @@
             Start Date:
         </div>
         <div class="col-md-3">
+            <!-- <input type="date" id="start" name="trip-start"
+            value="" [(ngModel)]= 'startDate' class="form-control"> -->
+
             <input type="date" id="start" name="trip-start"
-            value="" [(ngModel)]= 'startDate' class="form-control">
+                [ngModel]= "startDate | date:'yyyy-MM-dd'" class="form-control" (ngModelChange)="startDate = $event" class="form-control">
+
         </div>
         <div class="col-md-7">
         </div>
@@ -27,9 +31,10 @@
           </div>
           <div class="col-md-3">
 
-            <input type="date" id="start" name="trip-start"
-              value="" [(ngModel)]= 'endDate' class="form-control">
-
+            <!-- <input type="date" id="start" name="trip-start"
+              value="" [(ngModel)]= 'endDate' class="form-control"> -->
+              <input type="date" id="enddate" name="trip-end"
+              [ngModel]= "endDate | date:'yyyy-MM-dd'" class="form-control" (ngModelChange)="endDate = $event" class="form-control">
           </div>
           <div class="col-md-7">
           </div>
@@ -40,7 +45,7 @@
         </div>
         <div class="col-md-4">
             <div class="slidecontainer">
-                <input type="range" min="1" max="30" value="15" class="slider" id="myRange" (input)="OnPriorityChange($event.target.value)">
+                <input type="range" min="1" max="30" value="15" class="slider" id="myRange" [(ngModel)]="priority" (input)="OnPriorityChange($event.target.value)">
             </div>
         </div>
         <div class="col-md-6">
@@ -51,10 +56,10 @@
               Manager:
           </div>
           <div class="col-md-4">
-              <select [(ngModel)]="managerId" class="form-control">
+              <select [ngModel]="managerId" (ngModelChange)="managerId = $event" class="form-control">
                   <option value="0">Please Select</option>
-                  <option *ngFor="let usr of ManagerInfo" value= {{usr.UserId}}>
-                    {{usr.FirstName}} {{usr.LastName}}
+                  <option *ngFor="let usr of ManagerInfo" value= {{usr.userId}}>
+                    {{usr.firstName}} {{usr.lastName}}
                   </option>
                 </select>
           </div>
@@ -64,19 +69,20 @@
 
         <div class="row form-group">
             <div class="col-md-2">
-              <button type="submit" class="btn btn-primary" (click)="Add()">Add</button>
+              </div>
+            <div class="col-md-1">
+              <button type="submit" class="btn btn-primary" (click)="AddUpdate()">{{addbuttontext}}</button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
                 <button type="submit" class="btn btn-primary" (click)="Reset()">Reset</button>
             </div>
-            <div class="col-md-8">
-            </div>
+
           </div>
 
 <hr/>
 <div class="row form-group">
     <div class="col-md-4">
-      <input type="text" class="form-control push-left" [(ngModel)]= 'searchKey' placeholder="Search..."/>
+      <input type="text" class="form-control push-left" [(ngModel)]= 'searchKey' placeholder="Search..." (input)="onSearchChange($event.target.value)"/>
     </div>
     <div class="col-md-8">
     </div>
@@ -90,7 +96,7 @@
                   Project:
                 </div>
                 <div class="col-md-6">
-                    {{proj.ProjectDesc}}
+                    {{proj.projectDesc}}
                 </div>
           </div>
           <div class="row">
@@ -112,13 +118,13 @@
                   Start Date:
                 </div>
                 <div class="col-md-3">
-                  {{proj.StartDate}}
+                  {{proj.startDate | date: 'dd/MM/yyyy'}}
                 </div>
                 <div class="col-md-3">
                   End Date:
                 </div>
                 <div class="col-md-3">
-                  {{proj.EndDate}}
+                  {{proj.endDate | date: 'dd/MM/yyyy'}}
                 </div>
             </div>
         </div>
@@ -127,12 +133,16 @@
             Priority
           </div>
           <div class="row">
-            {{proj.Priority}}
+            {{proj.priority}}
           </div>
         </div>
         <div class="col-md-2">
-            <button type="submit" class="btn btn-primary" (click)="Edit(proj.ProjectId)">Update</button>
-            <button type="submit" class="btn btn-primary" (click)="Delete(proj.ProjectId)">Suspend</button>
+          <div style="padding: 3px">
+            <button type="submit" class="btn btn-primary" (click)="Edit(proj.projectId)">Update</button>
+          </div>
+          <div style="padding: 3px">
+            <button type="submit" class="btn btn-primary" (click)="Delete(proj.projectId)">Suspend</button>
+          </div>
         </div>
       </div>
       <hr/>
