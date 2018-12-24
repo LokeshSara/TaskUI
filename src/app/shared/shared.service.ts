@@ -19,8 +19,8 @@ export class ApiService {
     // private userapiUrl = 'http://localhost:54913/api/user';
     // private projectapiUrl = 'http://localhost:54913/api/project';
     private taskapiUrl = 'http://suchi-pc/TaskApi/api/task';
-     private taskapiUrl = 'http://suchi-pc/TaskApi/api/user';
-      private taskapiUrl = 'http://suchi-pc/TaskApi/api/project';
+     private userapiUrl = 'http://suchi-pc/TaskApi/api/user';
+      private projectapiUrl = 'http://suchi-pc/TaskApi/api/project';
 
     /**
      *
