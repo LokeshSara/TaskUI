@@ -9,6 +9,7 @@ describe('TaskListComponent', () => {
   let TASKS;
   let router: Router;
   let mockTaskService;
+  let srcInfo;
 
   beforeEach(() => {
 
@@ -21,7 +22,9 @@ describe('TaskListComponent', () => {
         startDate: '2018-01-01T00:00:00', endDate: '2018-01-01T00:00:00', priority: 2},
     ];
 
-    mockTaskService = jasmine.createSpyObj(['getAllTasks']);
+    srcInfo = { parentDesc: 'test'};
+
+    mockTaskService = jasmine.createSpyObj(['getAllTasks', 'searchTask']);
 
     component = new TaskListComponent(mockTaskService, router);
 
@@ -41,4 +44,20 @@ describe('TaskListComponent', () => {
     });
 
   });
+
+  describe('Search Task', () => {
+
+    it('should serach tasks', () => {
+
+      mockTaskService.getAllTasks.and.returnValue(of(TASKS));
+
+      component.SearchInfo = srcInfo;
+      component.getAllTask();
+
+      expect(component.TaskInfo.length).toBe(3);
+
+    });
+
+  });
+
 });
