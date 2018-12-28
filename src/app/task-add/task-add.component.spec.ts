@@ -87,19 +87,19 @@ describe('TaskListComponent', () => {
 
   });
 
-  describe('All Task', () => {
+  // describe('All Task', () => {
 
-    it('should Add Task', () => {
+  //   it('should Add Task', () => {
 
-      mockTaskService.AddTask.and.returnValue(of(true));
-      mockTaskService.navigateByUrl.and.returnValue(of('\home'));
-      component.TaskInformation = Task;
-      component.AddTask();
+  //     mockTaskService.AddTask.and.returnValue(of(true));
+  //     mockTaskService.navigateByUrl.and.returnValue(of('\home'));
+  //     component.TaskInformation = Task;
+  //     component.AddTask();
 
-      expect(component.TaskAddStatus).toBe(true);
+  //     expect(component.TaskAddStatus).toBe(true);
 
-    });
-  });
+  //   });
+  // });
 
 
 });

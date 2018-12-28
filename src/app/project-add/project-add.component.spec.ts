@@ -36,7 +36,8 @@ describe('Project Add Component', () => {
       {UserId: 2, FirstName: 'User2', LastName: 'LN2', EmployeeId: 1, ProjectId: 1, TaskId: 2}
     ];
 
-    mockTaskService = jasmine.createSpyObj(['getAllProject', 'getAllUsers', 'GetProjectById', 'AddProject', 'UpdateProject', 'DeleteProject']);
+    mockTaskService = jasmine.createSpyObj(['getAllProject', 'getAllUsers',
+       'GetProjectById', 'AddProject', 'UpdateProject', 'DeleteProject']);
 
     component = new ProjectAddComponent(mockTaskService);
 
@@ -94,7 +95,12 @@ describe('Project Add Component', () => {
 
       component. projectId = 0;
       component.ProjectInfo = ProjectAdd;
+      component.managerId = 1;
+      component.project = 'Test';
+      component.startDate = '01/01/2015';
+      component.endDate = '01/02/2015';
       component.AddUpdate();
+
 
       expect(component.UpdateStatus).toBe(true);
 
@@ -112,6 +118,10 @@ describe('Project Add Component', () => {
 
       component. projectId = 1;
       component.ProjectInfo = ProjectUpdate;
+      component.managerId = 1;
+      component.project = 'Test';
+      component.startDate = '01/01/2015';
+      component.endDate = '01/02/2015';
       component.AddUpdate();
 
       expect(component.UpdateStatus).toBe(true);
