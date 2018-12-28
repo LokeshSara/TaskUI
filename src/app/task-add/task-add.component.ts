@@ -27,6 +27,13 @@ export class TaskAddComponent implements OnInit {
   _ProjectID: number;
   _UserID: number;
 
+IsProjectNotSelected =  false;
+IsTaskNameNotEntered = false;
+IsEndDateNotSelected = false;
+IsStartDateNotSelected = false;
+IsUserNotSelected =  false;
+IsDateRangeNotValid = false;
+
   constructor(private taskService: ApiService, private router: Router) {
 
    }
@@ -90,7 +97,73 @@ export class TaskAddComponent implements OnInit {
       );
     }
 
+    validateProjectName(value) {
+
+      if (value === undefined || value === 0 ) {
+        this.IsProjectNotSelected = true;
+      }      else {
+        this.IsProjectNotSelected = false;
+      }
+    }
+
+    validateTaskName(value) {
+
+      if (value === undefined || value === '' ) {
+        this.IsTaskNameNotEntered = true;
+      }      else {
+        this.IsTaskNameNotEntered = false;
+      }
+    }
+
+
+    validateStartDate(value) {
+
+      if (value === undefined || value === '' ) {
+        this.IsStartDateNotSelected = true;
+      }      else {
+        this.IsStartDateNotSelected = false;
+      }
+    }
+
+    validateEndDate(value) {
+
+      if (value === undefined || value === '' ) {
+        this.IsEndDateNotSelected = true;
+      }      else {
+        this.IsEndDateNotSelected = false;
+      }
+    }
+
+    validateUser(value) {
+    console.log(value);
+      if (value === undefined || value === 0 ) {
+        this.IsUserNotSelected = true;
+      }      else {
+        this.IsUserNotSelected = false;
+      }
+    }
+
+    validateDateRange(startdate, enddate) {
+      if (startdate > enddate) {
+        this.IsDateRangeNotValid = true;
+      }      else {
+        this.IsDateRangeNotValid = false;
+      }
+    }
+
+
     AddTask(): void {
+
+    this.validateDateRange(this.startDate, this.endDate);
+    this.validateEndDate(this.endDate);
+    this.validateProjectName(this.projectId);
+    this.validateStartDate(this.startDate);
+    this.validateTaskName(this.task);
+    this.validateUser(this.userId);
+
+if (!this.IsDateRangeNotValid && !this.IsEndDateNotSelected && !this.IsStartDateNotSelected &&
+     !this.IsProjectNotSelected && !this.IsTaskNameNotEntered && !this.IsUserNotSelected
+   ) {
 
       this.TaskInformation = {
                           ParentId: this.parentId, TaskDesc: this.task, StartDate: this.startDate,
@@ -107,6 +180,8 @@ export class TaskAddComponent implements OnInit {
       },
       error => this.errorMessage =  <any>error
       );
+
+    }
     }
 
     ResetTask(): void {
@@ -117,6 +192,12 @@ export class TaskAddComponent implements OnInit {
       this.parentId = 0;
       this.projectId = 0;
       this.userId = 0;
+      this.IsProjectNotSelected =  false;
+      this.IsTaskNameNotEntered = false;
+      this.IsEndDateNotSelected = false;
+      this.IsStartDateNotSelected = false;
+      this.IsUserNotSelected =  false;
+      this.IsDateRangeNotValid = false;
     }
 
     OnPriorityChange(strPriority) {

@@ -3,6 +3,7 @@ import { ApiService } from '../shared/shared.service';
 import { IUser } from '../user-add/IUser';
 import { IProject } from './IProject';
 import { ISearchInfo } from './ISearchInfo';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'pm-project-add',
@@ -25,7 +26,12 @@ UpdateStatus: boolean;
 searchInfo: ISearchInfo;
 _AddButtonText: string;
 dateIsInvalidValid: boolean;
-IsProjectNamePresent: boolean;
+IsProjectNameNotPresent: boolean;
+IsManagerNotSelected =  false;
+IsProjectNameNotEntered = false;
+IsEndDateNotSelected = false;
+IsStartDateNotSelected = false;
+IsDateRangeNotValid = false;
 
   constructor(private taskService: ApiService) { }
 
@@ -48,10 +54,10 @@ IsProjectNamePresent: boolean;
 
 
   get startDate(): string {return this._StartDate; }
-  set startDate(value: string) { this._StartDate = value.trim(); }
+  set startDate(value: string) { this._StartDate = value; }
 
   get endDate(): string {return this._EndDate; }
-  set endDate(value: string) { this._EndDate = value.trim(); }
+  set endDate(value: string) { this._EndDate = value; }
 
   get managerId(): number {return this._ManagerId; }
   set managerId(value: number) { this._ManagerId = value; }
@@ -103,77 +109,112 @@ IsProjectNamePresent: boolean;
         this.priority = strPriority;
     }
 
-validate(): Boolean {
+    validateManager(value) {
+      if (value === 0 ) {
+        this.IsManagerNotSelected = true;
+      }      else {
+        this.IsManagerNotSelected = false;
+      }
+    }
 
+    validateProjectName(value) {
 
+      if (value === undefined || value === '' ) {
+        this.IsProjectNameNotEntered = true;
+      }      else {
+        this.IsProjectNameNotEntered = false;
+      }
+    }
 
+    validateStartDate(value) {
+      console.log(value);
+      if (value === undefined || value === '' ) {
+        this.IsStartDateNotSelected = true;
+      }      else {
+        this.IsStartDateNotSelected = false;
+      }
+    }
 
-  if (this.startDate >= this.endDate) {
-    this.dateIsInvalidValid = true;
-  } else {
-    this.dateIsInvalidValid = false;
-  }
+    validateEndDate(value) {
+      console.log(value);
+      if (value === undefined || value === '' ) {
+        this.IsEndDateNotSelected = true;
+      }      else {
+        this.IsEndDateNotSelected = false;
+      }
+    }
 
-  if (this.project == null || this.project === '') {
-    this.IsProjectNamePresent = true;
-  } else {
-    this.IsProjectNamePresent = false;
-  }
-
-  return this.dateIsInvalidValid && this.IsProjectNamePresent;
-
-}
+    validateDateRange(startdate, enddate) {
+      if (startdate > enddate) {
+        this.IsDateRangeNotValid = true;
+      }      else {
+        this.IsDateRangeNotValid = false;
+      }
+    }
 
     AddUpdate() {
-      this.IsProjectNamePresent = false;
-      this.dateIsInvalidValid = false;
 
-    if (!this.validate()) {
-      return; }
+      this.validateManager(this.managerId);
+      this.validateProjectName(this.project);
+      this.validateStartDate (this.startDate);
+      this.validateEndDate(this.endDate);
+
+      if (!this.IsEndDateNotSelected && !this.IsStartDateNotSelected) {
+        this.validateDateRange(this.startDate, this.endDate);
+      }
 
       this.ProjectInfo = {
-         ProjectId: this.projectId, ProjectDesc: this.project, StartDate: this.startDate,
-         EndDate: this.endDate, Priority: this.priority, ManagerId: this.managerId
-      };
+        ProjectId: this.projectId, ProjectDesc: this.project, StartDate: this.startDate,
+        EndDate: this.endDate, Priority: this.priority, ManagerId: this.managerId
+     };
 
-    const projectinfoJson = JSON.stringify(this.ProjectInfo);
+      const projectinfoJson = JSON.stringify(this.ProjectInfo);
 
-    if (this.projectId === 0) {
-      this.taskService.AddProject(projectinfoJson).subscribe(
-        projectInfo => {
-        this.UpdateStatus = projectInfo;
-        this.getAllProjects();
-        this.Reset();
-        },
-        error => this.errorMessage =  <any>error
-        );
-    } else {
-      this.taskService.UpdateProject(projectinfoJson).subscribe(
-        TskInfo => {
-            this.UpdateStatus = TskInfo;
+      if (!this.IsManagerNotSelected && !this.IsProjectNameNotEntered
+                      && !this.IsStartDateNotSelected && !this.IsEndDateNotSelected
+                      && !this.IsDateRangeNotValid) {
+        if (this.projectId === 0) {
+          this.taskService.AddProject(projectinfoJson).subscribe(
+            projectInfo => {
+            this.UpdateStatus = projectInfo;
             this.getAllProjects();
-            this.addbuttontext = 'Add';
-            this.projectId = 0;
-            this.project = '';
-            this.startDate = '';
-            this.endDate = '';
-            this.priority = '0';
-            this.managerId = 0;
-        },
-        error => this.errorMessage =  <any>error
-        );
-    }
+            this.Reset();
+            },
+            error => this.errorMessage =  <any>error
+            );
+        } else {
+          this.taskService.UpdateProject(projectinfoJson).subscribe(
+            TskInfo => {
+                this.UpdateStatus = TskInfo;
+                this.getAllProjects();
+                this.addbuttontext = 'Add';
+                this.projectId = 0;
+                this.project = '';
+                this.startDate = undefined;
+                this.endDate = undefined;
+                this.priority = '0';
+                this.managerId = 0;
+            },
+            error => this.errorMessage =  <any>error
+            );
+        }
+      }
+
 }
 
 Reset() {
   if (this.projectId === 0 ) {
-    this.IsProjectNamePresent = false;
     this.dateIsInvalidValid = false;
     this.project = '';
-    this.startDate = '';
-    this.endDate = '';
+    this.startDate = undefined;
+    this.endDate = undefined;
     this.priority = '0';
     this.managerId = 0;
+    this.IsManagerNotSelected =  false;
+    this.IsProjectNameNotEntered = false;
+    this.IsEndDateNotSelected = false;
+    this.IsStartDateNotSelected = false;
+    this.IsDateRangeNotValid = false;
   } else {
     this.getProjectById(this.projectId);
   }

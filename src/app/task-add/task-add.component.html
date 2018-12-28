@@ -11,6 +11,9 @@
                   {{proj.projectDesc}}
                 </option>
               </select>
+              <div *ngIf="IsProjectNotSelected" class="alert alert-danger small">
+                  Select Project .
+                </div>
         </div>
         <div class="col-md-6">
         </div>
@@ -21,6 +24,9 @@
   </div>
   <div class="col-md-4">
     <input type="text" class="form-control push-left" [(ngModel)]= 'task' style="width: 353px;"/>
+    <div *ngIf="IsTaskNameNotEntered" class="alert alert-danger small">
+        Enter Task .
+      </div>
   </div>
   <div class="col-md-6">
   </div>
@@ -32,6 +38,7 @@
     <div class="col-md-4">
         <div class="slidecontainer">
             <input type="range" min="1" max="30" value="15" class="slider" [(ngModel)]="priority" style="width: 353px;" id="myRange" (input)="OnPriorityChange($event.target.value)">
+
         </div>
     </div>
     <div class="col-md-6">
@@ -48,6 +55,7 @@
                 {{tsk.taskDesc}}
               </option>
             </select>
+
       </div>
       <div class="col-md-6">
       </div>
@@ -59,6 +67,9 @@
         <div class="col-md-3">
             <input type="date" id="start" name="trip-start"
             value="" [(ngModel)]= 'startDate' class="form-control">
+            <div *ngIf="IsStartDateNotSelected" class="alert alert-danger small">
+                Select Start Date .
+              </div>
         </div>
         <div class="col-md-7">
         </div>
@@ -71,7 +82,9 @@
 
             <input type="date" id="start" name="trip-start"
               value="" [(ngModel)]= 'endDate' class="form-control">
-
+              <div *ngIf="IsEndDateNotSelected" class="alert alert-danger small">
+                  Select End Date .
+                </div>
           </div>
           <div class="col-md-7">
           </div>
@@ -87,6 +100,9 @@
                       {{usr.firstName}}{{usr.lastName}}
                     </option>
                   </select>
+                  <div *ngIf="IsUserNotSelected" class="alert alert-danger small">
+                      Select User .
+                    </div>
             </div>
             <div class="col-md-6">
             </div>

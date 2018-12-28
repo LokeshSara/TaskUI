@@ -6,6 +6,9 @@
       </div>
       <div class="col-md-4">
         <input type="text" class="form-control push-left" [(ngModel)]= 'firstName' style="width: 355px;"/>
+        <div *ngIf="IsFirstNameNotEntered" class="alert alert-danger small">
+            Please enter first name.
+          </div>
       </div>
       <div class="col-md-6">
       </div>
@@ -16,6 +19,9 @@
         </div>
         <div class="col-md-4">
           <input type="text" class="form-control push-left" [(ngModel)]= 'lastName' style="width: 355px;"/>
+          <div *ngIf="IsLastNameNotEntered" class="alert alert-danger small">
+              Please enter Last name.
+            </div>
         </div>
         <div class="col-md-6">
         </div>
@@ -26,6 +32,9 @@
           </div>
           <div class="col-md-4">
             <input type="number" class="form-control push-left" [(ngModel)]= 'employeeId' style="width: 355px;"/>
+            <div *ngIf="IsEmployeeIDNotEntered" class="alert alert-danger small">
+                Please enter Employee id.
+              </div>
           </div>
           <div class="col-md-6">
           </div>
@@ -54,7 +63,7 @@
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-2">
-            <button type="submit" class="btn btn-primary " (click)='Search()' style="width: 120px;">Search</button>
+            <button type="submit" class="btn btn-primary " (click)='Search()' >Search</button>
         </div>
       </div>
     </div>

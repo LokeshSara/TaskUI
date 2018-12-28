@@ -21,6 +21,9 @@ export class UserAddComponent implements OnInit {
   errorMessage: string;
   _UserId: number;
   searchInfo: ISearchInfo;
+  IsFirstNameNotEntered =  false;
+  IsLastNameNotEntered = false;
+  IsEmployeeIDNotEntered = false;
 
   constructor(private taskService: ApiService, private router: Router) { }
 
@@ -70,7 +73,43 @@ export class UserAddComponent implements OnInit {
     );
   }
 
+  validateEmployeeId(value) {
+    console.log(value);
+    if (value === undefined || value === '' ) {
+      this.IsEmployeeIDNotEntered = true;
+    }      else {
+      this.IsEmployeeIDNotEntered = false;
+    }
+  }
+
+  validateFirstName(value) {
+
+    if (value === undefined || value === ''  ) {
+      this.IsFirstNameNotEntered = true;
+    }      else {
+      this.IsFirstNameNotEntered = false;
+    }
+  }
+
+  validateLastName(value) {
+
+    if (value === undefined || value === '' ) {
+      this.IsLastNameNotEntered = true;
+    }      else {
+      this.IsLastNameNotEntered = false;
+    }
+  }
+
+
 AddUpdate() {
+
+
+this.validateEmployeeId(this.employeeId);
+this.validateFirstName(this.firstName);
+this.validateLastName(this.lastName);
+
+if (!this.IsLastNameNotEntered && !this.IsFirstNameNotEntered && !this.IsEmployeeIDNotEntered){
+
       this.UserInfo = {
          FirstName: this.firstName, LastName: this.lastName, EmployeeId: this.employeeId, UserId: this.userId
       };
@@ -93,7 +132,7 @@ AddUpdate() {
             this.getAllUser();
             this.firstName = '';
             this.lastName = '';
-            this.employeeId = null;
+            this.employeeId = undefined;
             this.addbuttontext = 'Add';
             this.userId = 0;
         },
@@ -101,7 +140,7 @@ AddUpdate() {
         );
     }
 
-
+  }
 
 
 }
@@ -110,7 +149,10 @@ Reset() {
   if (this.userId === 0 ) {
     this.firstName = '';
     this.lastName = '';
-    this.employeeId = null;
+    this.employeeId = undefined;
+    this.IsFirstNameNotEntered =  false;
+    this.IsLastNameNotEntered = false;
+    this.IsEmployeeIDNotEntered = false;
   } else {
     this.getUserById(this.userId);
   }

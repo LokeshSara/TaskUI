@@ -91,15 +91,15 @@ export class TaskListComponent implements OnInit {
       this.taskService.DeleteTask(taskid).subscribe(
       TskInfo => {
           this.deleteStatus = TskInfo;
+          this.getAllTask();
       },
       error => this.errorMessage =  <any>error
       );
     }
 
     OnDeleteClick(tskid): void {
-
       this.DeleteTask(tskid);
-      this.SearchTask();
+
     }
 
 }
