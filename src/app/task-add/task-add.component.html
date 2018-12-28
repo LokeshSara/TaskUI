@@ -5,7 +5,7 @@
             Project:
         </div>
         <div class="col-md-4">
-            <select [ngModel]="projectId" (ngModelChange)="projectId = $event" class="form-control">
+            <select [ngModel]="projectId" (ngModelChange)="projectId = $event" style="width: 353px;" class="form-control">
                 <option value="0">Please Select</option>
                 <option *ngFor="let proj of ProjectInfo" value= {{proj.projectId}}>
                   {{proj.projectDesc}}
@@ -20,7 +20,7 @@
       Task:
   </div>
   <div class="col-md-4">
-    <input type="text" class="form-control push-left" [(ngModel)]= 'task'/>
+    <input type="text" class="form-control push-left" [(ngModel)]= 'task' style="width: 353px;"/>
   </div>
   <div class="col-md-6">
   </div>
@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-4">
         <div class="slidecontainer">
-            <input type="range" min="1" max="30" value="15" class="slider" id="myRange" (input)="OnPriorityChange($event.target.value)">
+            <input type="range" min="1" max="30" value="15" class="slider" [(ngModel)]="priority" style="width: 353px;" id="myRange" (input)="OnPriorityChange($event.target.value)">
         </div>
     </div>
     <div class="col-md-6">
@@ -42,7 +42,7 @@
           Parent Task:
       </div>
       <div class="col-md-4">
-          <select [(ngModel)]="parentId" class="form-control">
+          <select [(ngModel)]="parentId" class="form-control" style="width: 353px;">
               <option value="0">Please Select</option>
               <option *ngFor="let tsk of TaskInfo" value= {{tsk.taskId}}>
                 {{tsk.taskDesc}}
@@ -81,7 +81,7 @@
                 User:
             </div>
             <div class="col-md-4">
-                <select [ngModel]="userId" (ngModelChange)="userId = $event" class="form-control">
+                <select [ngModel]="userId" (ngModelChange)="userId = $event" class="form-control" style="width: 353px;">
                     <option value="0">Please Select</option>
                     <option *ngFor="let usr of UserInfo" value= {{usr.userId}}>
                       {{usr.firstName}}{{usr.lastName}}
@@ -92,13 +92,14 @@
             </div>
           </div>
         <div class="row form-group">
-            <div class="col-md-2">
-              <button type="submit" class="btn btn-primary" (click)="AddTask()">Add Task</button>
+            <div class="col-md-2"></div>
+            <div class="col-md-1">
+              <button type="submit" class="btn btn-primary" (click)="AddTask()" style="width: 100px;">Add Task</button>
             </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary" (click)="ResetTask()">Reset</button>
-            </div>
+            <div class="col-md-1"></div>
             <div class="col-md-8">
+                <button type="submit" class="btn btn-primary" (click)="ResetTask()" style="width: 100px;">Reset</button>
             </div>
+
           </div>
 </div>

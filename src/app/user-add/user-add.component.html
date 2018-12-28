@@ -5,7 +5,7 @@
           First Name:
       </div>
       <div class="col-md-4">
-        <input type="text" class="form-control push-left" [(ngModel)]= 'firstName'/>
+        <input type="text" class="form-control push-left" [(ngModel)]= 'firstName' style="width: 355px;"/>
       </div>
       <div class="col-md-6">
       </div>
@@ -15,7 +15,7 @@
             Last Name:
         </div>
         <div class="col-md-4">
-          <input type="text" class="form-control push-left" [(ngModel)]= 'lastName'/>
+          <input type="text" class="form-control push-left" [(ngModel)]= 'lastName' style="width: 355px;"/>
         </div>
         <div class="col-md-6">
         </div>
@@ -25,7 +25,7 @@
               Employee ID:
           </div>
           <div class="col-md-4">
-            <input type="number" class="form-control push-left" [(ngModel)]= 'employeeId'/>
+            <input type="number" class="form-control push-left" [(ngModel)]= 'employeeId' style="width: 355px;"/>
           </div>
           <div class="col-md-6">
           </div>
@@ -35,10 +35,12 @@
         <div class="col-md-2">
           </div>
         <div class="col-md-1">
-          <button type="submit" class="btn btn-primary" (click)="AddUpdate()">{{addbuttontext}}</button>
+          <button type="submit" class="btn btn-primary" (click)="AddUpdate()" style="width: 120px;">{{addbuttontext}}</button>
         </div>
-        <div class="col-md-6">
-            <button type="submit" class="btn btn-primary" (click)="Reset()">Reset</button>
+        <div class="col-md-1">
+          </div>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-primary" (click)="Reset()" style="width: 120px;">Reset</button>
         </div>
 
       </div>
@@ -48,10 +50,11 @@
     <div class="col-md-4">
       <div class="row">
         <div class="col-md-8">
-            <input type="text" class="form-control push-left" [(ngModel)]= 'searchKey' placeholder="Search..."/>
+            <input type="text" class="form-control" [(ngModel)]= 'searchKey' placeholder="Search..." style="width: 250px;"/>
         </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary pull-right" (click)='Search()'>Search</button>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary " (click)='Search()' style="width: 120px;">Search</button>
         </div>
       </div>
     </div>
@@ -62,23 +65,23 @@
 <div *ngFor='let user of UserList'>
     <hr/>
     <div class="row form-group">
-        <div class="col-md-8">
+        <div class="col-md-8 bg-light">
           {{user.firstName}}
         </div>
         <div class="col-md-4">
-            <button type="submit" class="btn btn-primary" (click)="Edit(user.userId)">Edit</button>
+            <button type="submit" class="btn btn-primary" (click)="Edit(user.userId)" style="width: 120px;">Edit</button>
         </div>
       </div>
       <div class="row form-group">
-          <div class="col-md-8">
+          <div class="col-md-8 bg-light">
               {{user.lastName}}
           </div>
           <div class="col-md-4">
-              <button type="submit" class="btn btn-primary" (click)="Delete(user.userId)">Delete</button>
+              <button type="submit" class="btn btn-primary" (click)="Delete(user.userId)" style="width: 120px;">Delete</button>
           </div>
         </div>
         <div class="row form-group">
-            <div class="col-md-8">
+            <div class="col-md-8 bg-light">
                 {{user.employeeId}}
             </div>
             <div class="col-md-4">

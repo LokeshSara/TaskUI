@@ -1,37 +1,44 @@
 <div>
   <div class="row form-group label">
-    <div class="col-md-1">Task:</div>
-    <div class="col-md-5">
-      <input type="text" class="form-control"
-            [(ngModel)] = 'taskDesc'/>
+    <div class="col-md-6">
+        <div><label>Task:</label></div>
+        <div>
+          <input type="text" class="form-control"
+                [(ngModel)] = 'taskDesc'/>
+        </div>
     </div>
-    <div class="col-md-1">Parent Task:</div>
-    <div class="col-md-5"> <input type="text" class="form-control"
-      [(ngModel)] = 'parentTask'/></div>
+    <div class="col-md-6">
+        <div><label>Parent Task:</label> </div>
+        <div> <input type="text" class="form-control"
+          [(ngModel)] = 'parentTask'/></div>
+      </div>
   </div>
   <div class="row form-group label">
-    <div class="col-md-1">Priority From:</div>
-    <div class="col-md-2"><input type="text" class="form-control" type="number"
-      [(ngModel)] = 'priorityFrom'/></div>
-    <div class="col-md-1">Priority To:</div>
-    <div class="col-md-2"><input [(ngModel)]= 'priorityTo' class="form-control" type="number"/></div>
-    <div class="col-md-1">Start Date:</div>
-    <div class="col-md-2">
-      <!-- <input [(ngModel)]= 'startDate' class="form-control"/> -->
-
-      <input type="date" id="start" name="trip-start"
-       value="" [(ngModel)]= 'startDate' class="form-control"
-       >
-
+    <div class="col-md-3">
+        <div>Priority From:</div>
+        <div><input type="text" class="form-control" type="number"
+          [(ngModel)] = 'priorityFrom'/></div>
     </div>
-    <div class="col-md-1">End Date:</div>
-    <div class="col-md-2">
-      <!-- <input [(ngModel)]= 'endDate' class="form-control"/> -->
-
-      <input type="date" id="start" name="trip-start"
-      value="" [(ngModel)]= 'endDate' class="form-control"
-      >
+    <div class="col-md-3">
+        <div>Priority To:</div>
+        <div><input [(ngModel)]= 'priorityTo' class="form-control" type="number"/></div>
     </div>
+    <div class="col-md-3">
+        <div>Start Date:</div>
+        <div>
+          <input type="date" id="start" name="trip-start"
+           value="" [(ngModel)]= 'startDate' class="form-control">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>End Date:</div>
+        <div>
+          <input type="date" id="start" name="trip-start"
+          value="" [(ngModel)]= 'endDate' class="form-control"
+          >
+        </div>
+    </div>
+
   </div>
   <div class="row">
     <div class="col-md-12">
@@ -72,8 +79,10 @@
               <td>{{Task.startDate | date: 'dd/MM/yyyy'}}</td>
               <td>{{Task.endDate | date: 'dd/MM/yyyy'}}</td>
               <td>
-                <button value="Edit" style="margin: 10px" (click)="onEditClick(Task.taskId)">Edit</button>
-                <button style="margin: 10px" (click)="OnDeleteClick(Task.taskId)">End Task</button>
+                <div class="row">
+                <div><button value="Edit" class="btn btn-primary" (click)="onEditClick(Task.taskId)" style="width: 100px; margin:2px">Edit</button></div>
+                <div><button class="btn btn-primary" (click)="OnDeleteClick(Task.taskId)" style="width: 100px;  margin:2px">End Task</button></div>
+                </div>
               </td>
           </tr>
       </tbody>

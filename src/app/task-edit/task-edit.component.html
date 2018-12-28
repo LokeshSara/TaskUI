@@ -5,7 +5,7 @@
             Project:
         </div>
         <div class="col-md-4">
-            <select [ngModel]="projectId" (ngModelChange)="projectId = $event" class="form-control">
+            <select [ngModel]="projectId" (ngModelChange)="projectId = $event" class="form-control" style="width: 353px;" >
                 <option value="0">Please Select</option>
                 <option *ngFor="let proj of ProjectInfo" value= {{proj.projectId}}>
                   {{proj.projectDesc}}
@@ -20,7 +20,7 @@
           Task:
       </div>
       <div class="col-md-4">
-        <input type="text" class="form-control push-left" [(ngModel)]= 'task'/>
+        <input type="text" class="form-control push-left" [(ngModel)]= 'task' style="width: 353px;"/>
       </div>
       <div class="col-md-6">
       </div>
@@ -32,7 +32,7 @@
         <div class="col-md-4">
             <div class="slidecontainer">
                 <!-- <input type="range" min="1" max="30" value="15" class="slider" id="myRange" (input)="OnPriorityChange($event.target.value)"> -->
-                <input id="myRange" type="range" class="slider" min="1" max="30" [(ngModel)]="priority" (input)="OnPriorityChange($event.target.value)">
+                <input id="myRange" type="range" class="slider" min="1" style="width: 353px;" max="30" [(ngModel)]="priority" (input)="OnPriorityChange($event.target.value)">
             </div>
         </div>
         <div class="col-md-6">
@@ -43,7 +43,7 @@
               Parent Task:
           </div>
           <div class="col-md-4">
-              <select [ngModel]="parentId" (ngModelChange)="parentId = $event" class="form-control">
+              <select [ngModel]="parentId" (ngModelChange)="parentId = $event" class="form-control" style="width: 353px;">
                 <option value="0">Please Select</option>
                   <option *ngFor="let tsk of TaskInfo" value= {{tsk.taskId}}>
                     {{tsk.taskDesc}}
@@ -71,7 +71,7 @@
               <div class="col-md-3">
 
                 <input type="date" id="start" name="trip-start"
-                  [ngModel]= "endDate | date:'yyyy-MM-dd'" class="form-control" (ngModelChange)="endDate = $event">
+                  [ngModel]= "endDate | date:'yyyy-MM-dd'" class="form-control"  (ngModelChange)="endDate = $event">
 
               </div>
               <div class="col-md-7">
@@ -82,7 +82,7 @@
                     User:
                 </div>
                 <div class="col-md-4">
-                    <select [ngModel]="userId" (ngModelChange)="userId = $event"  class="form-control">
+                    <select [ngModel]="userId" (ngModelChange)="userId = $event"  class="form-control" style="width: 353px;">
                         <option value="0">Please Select</option>
                         <option *ngFor="let usr of UserInfo" value= {{usr.userId}}>
                           {{usr.firstName}}{{usr.lastName}}
@@ -93,13 +93,14 @@
                 </div>
               </div>
             <div class="row form-group">
-                <div class="col-md-2">
-                  <button type="submit" class="btn btn-primary" (click)="EditTask()">Update Task</button>
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                  <button type="submit" class="btn btn-primary" (click)="EditTask()" style="width: 120px;">Update Task</button>
                 </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary" (click)="ResetTask()">Reset</button>
-                </div>
+                <div class="col-md-1"></div>
                 <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary" (click)="ResetTask()" style="width: 120px;">Reset</button>
                 </div>
+
               </div>
     </div>

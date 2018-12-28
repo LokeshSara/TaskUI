@@ -167,6 +167,8 @@ validate(): Boolean {
 
 Reset() {
   if (this.projectId === 0 ) {
+    this.IsProjectNamePresent = false;
+    this.dateIsInvalidValid = false;
     this.project = '';
     this.startDate = '';
     this.endDate = '';
