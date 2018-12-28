@@ -24,6 +24,8 @@ _ProjectId: number;
 UpdateStatus: boolean;
 searchInfo: ISearchInfo;
 _AddButtonText: string;
+dateIsInvalidValid: boolean;
+IsProjectNamePresent: boolean;
 
   constructor(private taskService: ApiService) { }
 
@@ -34,6 +36,7 @@ _AddButtonText: string;
     this.getAllUser();
     this.managerId = 0;
     this.projectId = 0;
+    this.dateIsInvalidValid = false;
   }
 
 
@@ -100,7 +103,33 @@ _AddButtonText: string;
         this.priority = strPriority;
     }
 
+validate(): Boolean {
+
+
+
+
+  if (this.startDate >= this.endDate) {
+    this.dateIsInvalidValid = true;
+  } else {
+    this.dateIsInvalidValid = false;
+  }
+
+  if (this.project == null || this.project === '') {
+    this.IsProjectNamePresent = true;
+  } else {
+    this.IsProjectNamePresent = false;
+  }
+
+  return this.dateIsInvalidValid && this.IsProjectNamePresent;
+
+}
+
     AddUpdate() {
+      this.IsProjectNamePresent = false;
+      this.dateIsInvalidValid = false;
+
+    if (!this.validate()) {
+      return; }
 
       this.ProjectInfo = {
          ProjectId: this.projectId, ProjectDesc: this.project, StartDate: this.startDate,
@@ -141,7 +170,7 @@ Reset() {
     this.project = '';
     this.startDate = '';
     this.endDate = '';
-    this.priority = '15';
+    this.priority = '0';
     this.managerId = 0;
   } else {
     this.getProjectById(this.projectId);
