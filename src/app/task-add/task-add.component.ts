@@ -52,7 +52,7 @@ IsDateRangeNotValid = false;
     set task(value: string) { this._Task = value.trim(); }
 
     get priority(): string {return this._Priorty; }
-    set priority(value: string) { this._Priorty = value.trim(); }
+    set priority(value: string) { this._Priorty = value; }
 
 
     get startDate(): string {return this._StartDate; }
